@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shadoll — Build Bold. Ship Fearless.</title>
+<meta name="description" content="Shadoll is a software development company. Build Bold. Ship Fearless.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230a0a0a%22/><text x=%2250%22 y=%2270%22 font-size=%2270%22 fill=%22%23e30613%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-weight=%22900%22>S</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#e30613;
+    --red-dark:#a5040d;
+    --black:#0a0a0a;
+    --ink:#161616;
+    --paper:#f7f5f2;
+    --paper-2:#efeae4;
+    --line: rgba(10,10,10,0.12);
+    --max: 1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--black);
+    font-family:'Space Grotesk', system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Archivo Black','Space Grotesk', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:-0.02em;
+    line-height:0.95;
+    margin:0;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 24px;}
+  ::selection{background:var(--red); color:#fff;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+  }
+  @media (min-width: 721px){
+    header{
+      background:rgba(247,245,242,0.88);
+      backdrop-filter:blur(10px);
+    }
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:76px;
+  }
+  .logo{
+    font-family:'Archivo Black', sans-serif;
+    font-size:1.5rem;
+    letter-spacing:-0.03em;
+    display:flex; align-items:center; gap:2px;
+  }
+  .logo .dot{color:var(--red); font-size:1.8rem; line-height:0;}
+  .nav-links{display:flex; align-items:center; gap:36px;}
+  .nav-links a{
+    font-weight:600; font-size:0.95rem;
+    text-transform:uppercase; letter-spacing:0.03em;
+    position:relative; padding:4px 0;
+  }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:0; height:2px; width:0;
+    background:var(--red); transition:width .25s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-phone{
+    display:flex; align-items:center; gap:8px;
+    font-weight:700; background:var(--black); color:#fff;
+    padding:10px 18px; border-radius:999px; font-size:0.95rem;
+    white-space:nowrap;
+  }
+  .nav-phone .ring{color:var(--red);}
+  .burger{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:8px;}
+  .burger span{width:26px; height:3px; background:var(--black); display:block;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:110px 0 90px;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero::before{
+    content:'';
+    position:absolute; top:-20%; right:-10%;
+    width:620px; height:620px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, var(--red), transparent 70%);
+    opacity:0.18; filter:blur(10px);
+  }
+  .hero::after{
+    content:'';
+    position:absolute; left:-8%; bottom:-30%;
+    width:420px; height:420px;
+    background:var(--black); opacity:0.04; transform:rotate(20deg);
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-weight:700; font-size:0.8rem; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--red-dark);
+    background:#fff; border:1px solid var(--line);
+    padding:8px 16px; border-radius:999px; margin-bottom:28px;
+  }
+  .eyebrow::before{content:''; width:8px; height:8px; border-radius:50%; background:var(--red);}
+  .hero h1{
+    font-size:clamp(3rem, 9vw, 7.2rem);
+    position:relative; z-index:1;
+  }
+  .hero h1 .accent{color:var(--red);}
+  .slogan{
+    margin-top:26px; max-width:640px;
+    font-size:clamp(1.15rem, 2vw, 1.5rem);
+    font-weight:600; color:var(--ink);
+    border-left:4px solid var(--red);
+    padding-left:18px;
+  }
+  .hero-sub{
+    margin-top:20px; max-width:560px; color:#3a3a3a;
+    font-size:1.05rem; line-height:1.6;
+  }
+  .hero-cta{display:flex; flex-wrap:wrap; gap:16px; margin-top:42px;}
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    font-weight:700; text-transform:uppercase; font-size:0.9rem; letter-spacing:0.04em;
+    padding:16px 30px; border-radius:6px; border:2px solid var(--black);
+    transition:transform .2s ease, background .2s ease, color .2s ease;
+  }
+  .btn-primary{background:var(--red); border-color:var(--red); color:#fff;}
+  .btn-primary:hover{background:var(--black); border-color:var(--black); transform:translateY(-3px);}
+  .btn-ghost{background:transparent; color:var(--black);}
+  .btn-ghost:hover{background:var(--black); color:#fff; transform:translateY(-3px);}
+
+  .hero-stats{
+    display:grid; grid-template-columns:repeat(4,1fr);
+    gap:24px; margin-top:80px; position:relative; z-index:1;
+  }
+  .stat-num{
+    font-family:'Archivo Black', sans-serif; font-size:clamp(2rem,4vw,3rem);
+    color:var(--black);
+  }
+  .stat-num .u{color:var(--red);}
+  .stat-label{font-size:0.85rem; text-transform:uppercase; letter-spacing:0.08em; color:#555; margin-top:6px;}
+
+  /* ---------- SECTION HEADERS ---------- */
+  section{padding:110px 0;}
+  .sec-head{max-width:680px; margin-bottom:64px;}
+  .kicker{
+    color:var(--red); font-weight:700; text-transform:uppercase;
+    letter-spacing:0.18em; font-size:0.8rem; margin-bottom:14px; display:block;
+  }
+  .sec-head h2{font-size:clamp(2.2rem,5vw,3.6rem);}
+  .sec-head p{margin-top:18px; font-size:1.05rem; color:#3a3a3a; line-height:1.6;}
+
+  /* ---------- ABOUT ---------- */
+  .about{background:var(--paper-2); border-bottom:1px solid var(--line);}
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center;}
+  .about-visual{
+    aspect-ratio:1/1; background:var(--black); border-radius:18px;
+    position:relative; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .about-visual span{
+    font-family:'Archivo Black', sans-serif; color:#fff; font-size:9rem; opacity:.9;
+  }
+  .about-visual .slash{
+    position:absolute; width:160%; height:26px; background:var(--red);
+    transform:rotate(-18deg); top:38%; left:-30%;
+  }
+  .about-text p{font-size:1.05rem; line-height:1.75; color:#2a2a2a; margin-bottom:20px;}
+  .checklist{list-style:none; padding:0; margin:28px 0 0;}
+  .checklist li{
+    display:flex; gap:12px; align-items:flex-start; margin-bottom:14px;
+    font-weight:600; font-size:0.98rem;
+  }
+  .checklist li::before{content:'—'; color:var(--red); font-weight:900;}
+
+  /* ---------- SERVICES ---------- */
+  .services-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:2px;
+    background:var(--line); border:1px solid var(--line); border-radius:16px; overflow:hidden;
+  }
+  .service-card{
+    background:var(--paper); padding:44px 34px; position:relative;
+    transition:background .25s ease, color .25s ease;
+  }
+  .service-card:hover{background:var(--black); color:#fff;}
+  .service-card:hover .svc-num{color:var(--red);}
+  .service-card:hover .svc-desc{color:#cfcfcf;}
+  .svc-num{
+    font-family:'Archivo Black', sans-serif; font-size:0.95rem; color:var(--red);
+    display:block; margin-bottom:22px;
+  }
+  .service-card h3{font-size:1.35rem; margin-bottom:14px; text-transform:none; letter-spacing:0;}
+  .svc-desc{color:#4a4a4a; font-size:0.95rem; line-height:1.6; transition:color .25s ease;}
+
+  /* ---------- PROCESS ---------- */
+  .process{background:var(--black); color:#fff;}
+  .process .kicker{color:var(--red);}
+  .process .sec-head p{color:#bdbdbd;}
+  .process-list{display:flex; flex-direction:column;}
+  .process-item{
+    display:grid; grid-template-columns:110px 1fr; gap:30px;
+    padding:34px 0; border-top:1px solid rgba(255,255,255,0.12);
+    align-items:start;
+  }
+  .process-item:last-child{border-bottom:1px solid rgba(255,255,255,0.12);}
+  .process-item .pnum{
+    font-family:'Archivo Black', sans-serif; font-size:2.4rem; color:var(--red);
+  }
+  .process-item h3{text-transform:none; letter-spacing:0; font-size:1.3rem; margin-bottom:8px; font-family:'Space Grotesk';}
+  .process-item p{color:#b8b8b8; font-size:0.98rem; line-height:1.6; max-width:640px;}
+
+  /* ---------- TEAM ---------- */
+  .team-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:26px;}
+  .team-card{text-align:left;}
+  .avatar{
+    aspect-ratio:1/1; border-radius:14px; background:var(--black);
+    position:relative; overflow:hidden; margin-bottom:18px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .avatar span{font-family:'Archivo Black'; font-size:2.6rem; color:#fff;}
+  .avatar::after{
+    content:''; position:absolute; inset:0; background:var(--red);
+    mix-blend-mode:multiply; opacity:0; transition:opacity .25s ease;
+  }
+  .team-card:hover .avatar::after{opacity:0.35;}
+  .team-card h3{font-size:1.1rem; text-transform:none; letter-spacing:0; margin-bottom:4px;}
+  .team-role{color:var(--red-dark); font-weight:700; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.04em;}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testimonials{background:var(--paper-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .t-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:30px;}
+  .t-card{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:32px; display:flex; flex-direction:column; gap:20px;
+  }
+  .t-quote{font-size:2.4rem; color:var(--red); font-family:'Archivo Black'; line-height:1;}
+  .t-card p{font-size:1rem; line-height:1.6; color:#2a2a2a;}
+  .t-person{display:flex; align-items:center; gap:12px; margin-top:auto;}
+  .t-avatar{width:44px; height:44px; border-radius:50%; background:var(--black); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-family:'Archivo Black';}
+  .t-name{font-weight:700; font-size:0.92rem;}
+  .t-role{font-size:0.8rem; color:#666;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:70px;
+    background:var(--black); color:#fff; border-radius:22px; padding:70px;
+    position:relative; overflow:hidden;
+  }
+  .contact-grid::before{
+    content:''; position:absolute; right:-120px; top:-120px; width:340px; height:340px;
+    background:var(--red); border-radius:50%; opacity:0.25; filter:blur(40px);
+  }
+  .contact-grid h2{font-size:clamp(2rem,4.4vw,3.2rem); color:#fff; position:relative;}
+  .contact-grid p{color:#c6c6c6; margin-top:18px; font-size:1.02rem; line-height:1.6; max-width:460px;}
+  .contact-list{margin-top:36px; display:flex; flex-direction:column; gap:22px;}
+  .contact-list .row{display:flex; gap:16px; align-items:flex-start;}
+  .contact-list .ico{
+    width:44px; height:44px; border-radius:10px; background:var(--red);
+    display:flex; align-items:center; justify-content:center; flex:none; font-weight:900;
+  }
+  .contact-list strong{display:block; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.08em; color:#9b9b9b;}
+  .contact-list span, .contact-list a{font-size:1.05rem; font-weight:600; color:#fff;}
+  .form-card{
+    background:#fff; color:var(--black); border-radius:16px; padding:36px;
+    position:relative;
+  }
+  .form-card h3{text-transform:none; letter-spacing:0; font-size:1.3rem; margin-bottom:22px; font-family:'Space Grotesk'; font-weight:700;}
+  .field{margin-bottom:18px;}
+  .field label{display:block; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; color:#555;}
+  .field input, .field textarea{
+    width:100%; border:2px solid var(--line); border-radius:8px; padding:13px 14px;
+    font-family:inherit; font-size:0.95rem; background:var(--paper); resize:vertical;
+  }
+  .field input:focus, .field textarea:focus{outline:none; border-color:var(--red);}
+  .form-card .btn{width:100%; justify-content:center; margin-top:6px; cursor:pointer;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:50px 0 36px;}
+  .footer-top{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px;
+    padding-bottom:36px; border-bottom:1px solid var(--line);
+  }
+  .footer-logo{font-family:'Archivo Black'; font-size:1.6rem;}
+  .footer-logo .dot{color:var(--red);}
+  .footer-links{display:flex; gap:28px; flex-wrap:wrap;}
+  .footer-links a{font-weight:600; font-size:0.92rem; color:#3a3a3a;}
+  .footer-links a:hover{color:var(--red);}
+  .footer-bottom{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    padding-top:26px; font-size:0.85rem; color:#777;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 980px){
+    .about-grid{grid-template-columns:1fr; gap:44px;}
+    .about-visual{order:-1; max-width:340px; margin:0 auto;}
+    .services-grid{grid-template-columns:1fr 1fr;}
+    .team-grid{grid-template-columns:1fr 1fr;}
+    .t-grid{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr; padding:44px 28px;}
+    .hero-stats{grid-template-columns:repeat(2,1fr); row-gap:36px;}
+  }
+  @media (max-width: 720px){
+    .nav-links{
+      position:fixed; inset:76px 0 0 0; background:var(--paper); z-index:60;
+      flex-direction:column; align-items:flex-start; padding:32px 24px; gap:22px;
+      transform:translateX(100%); transition:transform .3s ease; border-top:1px solid var(--line);
+    }
+    .nav-links.open{transform:translateX(0);}
+    .nav-phone{display:none;}
+    .nav-links a{font-size:1.1rem;}
+    .burger{display:flex;}
+    .hero{padding:70px 0 60px;}
+    section{padding:70px 0;}
+    .services-grid{grid-template-columns:1fr;}
+    .team-grid{grid-template-columns:1fr 1fr; gap:18px;}
+    .process-item{grid-template-columns:1fr; gap:8px;}
+    .sec-head{margin-bottom:40px;}
+    .hero-cta .btn{width:100%; justify-content:center;}
+  }
+  @media (max-width: 480px){
+    .team-grid{grid-template-columns:1fr;}
+    .hero-stats{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="#top" class="logo">SHADOLL<span class="dot">.</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#team">Team</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="tel:+17577423655" class="nav-phone"><span class="ring">☎</span> +1 (757) 742-3655</a>
+    <button class="burger" id="burgerBtn" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Software Development Studio</span>
+      <h1>WE BUILD<br>SOFTWARE<span class="accent">.</span><br>ON PURPOSE<span class="accent">.</span></h1>
+      <p class="slogan">Build Bold. Ship Fearless.</p>
+      <p class="hero-sub">Shadoll is a software development company that partners with ambitious teams to design, engineer, and scale products — from first commit to production, and every release after.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">Start a Project →</a>
+        <a href="tel:+17577423655" class="btn btn-ghost">☎ +1 (757) 742-3655</a>
+      </div>
+
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">120<span class="u">+</span></div>
+          <div class="stat-label">Projects Shipped</div>
+        </div>
+        <div>
+          <div class="stat-num">9<span class="u">yr</span></div>
+          <div class="stat-label">In Business</div>
+        </div>
+        <div>
+          <div class="stat-num">40<span class="u">+</span></div>
+          <div class="stat-label">Engineers</div>
+        </div>
+        <div>
+          <div class="stat-num">18<span class="u">+</span></div>
+          <div class="stat-label">Countries Served</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap about-grid">
+      <div class="about-visual">
+        <div class="slash"></div>
+        <span>S.</span>
+      </div>
+      <div class="about-text">
+        <span class="kicker">Who We Are</span>
+        <h2>Engineers first.<br>Partners always.</h2>
+        <p>Founded in 2017, Shadoll started as a three-person garage team obsessed with clean code and shipped it anyway. Today we're a full-cycle software studio helping startups and enterprises build products that hold up under real-world pressure.</p>
+        <p>We don't do decks for the sake of decks. We write code, ship it, measure it, and iterate — fast, loud, and unapologetically thorough.</p>
+        <ul class="checklist">
+          <li>Full-stack product teams embedded with yours</li>
+          <li>Cloud-native architecture, built to scale from day one</li>
+          <li>Security and performance baked in, not bolted on</li>
+          <li>Transparent sprints, weekly demos, no black boxes</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">What We Do</span>
+        <h2>Full-cycle software, delivered</h2>
+        <p>From a napkin sketch to a production system serving millions of requests — we cover the entire stack.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <span class="svc-num">01</span>
+          <h3>Web &amp; Cloud Platforms</h3>
+          <p class="svc-desc">Scalable web applications and cloud-native backends built on modern, battle-tested stacks.</p>
+        </div>
+        <div class="service-card">
+          <span class="svc-num">02</span>
+          <h3>Mobile Engineering</h3>
+          <p class="svc-desc">Native and cross-platform apps for iOS and Android, tuned for performance and delight.</p>
+        </div>
+        <div class="service-card">
+          <span class="svc-num">03</span>
+          <h3>AI &amp; Data Systems</h3>
+          <p class="svc-desc">Applied machine learning, data pipelines, and intelligent automation woven into your product.</p>
+        </div>
+        <div class="service-card">
+          <span class="svc-num">04</span>
+          <h3>DevOps &amp; Infrastructure</h3>
+          <p class="svc-desc">CI/CD, container orchestration, and observability so releases ship daily, not quarterly.</p>
+        </div>
+        <div class="service-card">
+          <span class="svc-num">05</span>
+          <h3>Product Design</h3>
+          <p class="svc-desc">Interfaces engineered as carefully as the systems behind them — fast, clear, human.</p>
+        </div>
+        <div class="service-card">
+          <span class="svc-num">06</span>
+          <h3>Technical Advisory</h3>
+          <p class="svc-desc">Architecture reviews, audits, and CTO-as-a-service for teams scaling under pressure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process" id="process">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">How We Work</span>
+        <h2>Four steps. Zero fluff.</h2>
+        <p>A tight, transparent process built for teams who'd rather see working software than another slide deck.</p>
+      </div>
+      <div class="process-list">
+        <div class="process-item">
+          <div class="pnum">01</div>
+          <div><h3>Discover</h3><p>We dig into your goals, users, and constraints to scope the right build — not the biggest one.</p></div>
+        </div>
+        <div class="process-item">
+          <div class="pnum">02</div>
+          <div><h3>Design &amp; Architect</h3><p>Product and system architecture take shape together, so design decisions never outrun engineering reality.</p></div>
+        </div>
+        <div class="process-item">
+          <div class="pnum">03</div>
+          <div><h3>Build in Sprints</h3><p>Weekly demos, continuous deployment, and a backlog you can see — no surprises at the finish line.</p></div>
+        </div>
+        <div class="process-item">
+          <div class="pnum">04</div>
+          <div><h3>Launch &amp; Scale</h3><p>We stay past go-live to monitor, harden, and scale the system as real users show up.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="team">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">The People</span>
+        <h2>Leadership &amp; crew</h2>
+        <p>A small leadership team backed by a studio of senior engineers, designers, and product strategists.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="avatar"><span>MK</span></div>
+          <h3>Mara Kessler</h3>
+          <span class="team-role">Co-Founder &amp; CEO</span>
+        </div>
+        <div class="team-card">
+          <div class="avatar"><span>DV</span></div>
+          <h3>Dario Vance</h3>
+          <span class="team-role">Co-Founder &amp; CTO</span>
+        </div>
+        <div class="team-card">
+          <div class="avatar"><span>PN</span></div>
+          <h3>Priya Nandan</h3>
+          <span class="team-role">Head of Engineering</span>
+        </div>
+        <div class="team-card">
+          <div class="avatar"><span>EO</span></div>
+          <h3>Eli Osei</h3>
+          <span class="team-role">Head of Product Design</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">Client Words</span>
+        <h2>Don't take our word for it</h2>
+      </div>
+      <div class="t-grid">
+        <div class="t-card">
+          <div class="t-quote">&ldquo;</div>
+          <p>Shadoll rebuilt our platform in twelve weeks — the kind of speed we didn't think was possible without cutting corners. Nothing was cut.</p>
+          <div class="t-person">
+            <div class="t-avatar">RL</div>
+            <div><div class="t-name">Rosa Lindqvist</div><div class="t-role">VP Engineering, Nordfin</div></div>
+          </div>
+        </div>
+        <div class="t-card">
+          <div class="t-quote">&ldquo;</div>
+          <p>They think like founders, not vendors. Every recommendation was tied to a metric we actually cared about.</p>
+          <div class="t-person">
+            <div class="t-avatar">JT</div>
+            <div><div class="t-name">Jonah Truitt</div><div class="t-role">Founder, Haulwise</div></div>
+          </div>
+        </div>
+        <div class="t-card">
+          <div class="t-quote">&ldquo;</div>
+          <p>Our uptime went from an embarrassment to a selling point within one quarter of working with the Shadoll team.</p>
+          <div class="t-person">
+            <div class="t-avatar">CM</div>
+            <div><div class="t-name">Cora Mensah</div><div class="t-role">COO, Pallet &amp; Co.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div>
+          <span class="kicker">Get In Touch</span>
+          <h2>Let's build something loud.</h2>
+          <p>Tell us about your product, your timeline, and your biggest technical headache. We'll get back to you within one business day.</p>
+          <div class="contact-list">
+            <div class="row">
+              <div class="ico">☎</div>
+              <div><strong>Call Us</strong><a href="tel:+17577423655">+1 (757) 742-3655</a></div>
+            </div>
+            <div class="row">
+              <div class="ico">@</div>
+              <div><strong>Email</strong><a href="mailto:hello@shadoll.dev">hello@shadoll.dev</a></div>
+            </div>
+            <div class="row">
+              <div class="ico">◎</div>
+              <div><strong>Studio</strong><span>184 Founders Way, Suite 500, San Francisco, CA</span></div>
+            </div>
+          </div>
+        </div>
+        <form class="form-card" onsubmit="event.preventDefault(); this.querySelector('.btn').textContent='Message Sent ✓';">
+          <h3>Request a Proposal</h3>
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" type="text" placeholder="Ada Lovelace" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="ada@company.com" required>
+          </div>
+          <div class="field">
+            <label for="msg">Project Details</label>
+            <textarea id="msg" rows="4" placeholder="Tell us what you're building..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <a href="#top" class="footer-logo">SHADOLL<span class="dot">.</span></a>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#team">Team</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Shadoll Software, Inc. All rights reserved.</span>
+      <span>Build Bold. Ship Fearless.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const burger = document.getElementById('burgerBtn');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+</script>
+
+</body>
+</html>
